@@ -1,27 +1,29 @@
 import React, { useState, useEffect } from "react";
 import Editor from "./Editor";
 import useLocalStorage from "../hooks/useLocalStorage";
+import Header from "./Header";
 
 function App() {
-  const [html, setHtml] = useLocalStorage('html',"");
-  const [css, setCss] = useLocalStorage('css',"");
-  const [js, setJs] = useLocalStorage('js',"");
-  const [srcDoc, setSrcDoc] = useState("")
+  const [html, setHtml] = useLocalStorage("html", "");
+  const [css, setCss] = useLocalStorage("css", "");
+  const [js, setJs] = useLocalStorage("js", "");
+  const [srcDoc, setSrcDoc] = useState("");
 
-  useEffect(()=>{
-    const timeOut = setTimeout(()=>{
-        setSrcDoc( `  <html>
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      setSrcDoc(`  <html>
         <body>${html}</body>
         <style>${css}</style>
         <script>${js}</script>
-      </html> `)
-    }, 250)
+      </html> `);
+    }, 250);
 
-    return()=> clearTimeout(timeOut)
-  },[html,css,js])
+    return () => clearTimeout(timeOut);
+  }, [html, css, js]);
 
   return (
     <>
+      <Header />
       <div className="pane top-pane">
         <Editor
           language="xml"
@@ -34,7 +36,6 @@ function App() {
           displayName="CSS"
           value={css}
           onChange={setCss}
-          
         />
         <Editor
           language="javascript"
